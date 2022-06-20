@@ -1,4 +1,5 @@
 ﻿using ecommerce_app.Models;
+using ecommerce_app.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,13 +11,26 @@ namespace ecommerce_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : Controller
-    {
-        EcommerceAppContext db = new EcommerceAppContext();
+    public class UsersController : Controller {
 
+        private readonly IUsersService _usersService;
+        public UsersController(IUsersService usersService)
+        {
+            _usersService = usersService;
+        }
+
+        // api/users/
+        [HttpGet]
         public IEnumerable<User> Index()
         {
-            return db.User.ToList();
+            return _usersService.GetAll();
+        }
+
+        // api/users/:id
+        [HttpGet("{id:int}")]
+        public User Get(int Id)
+        {
+            return _usersService.Get(Id);
         }
     }
 }

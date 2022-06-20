@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ecommerce_app.Models;
+using ecommerce_app.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +13,23 @@ namespace ecommerce_app.Controllers
     [ApiController]
     public class ProductsController : Controller
     {
+        private readonly IProductsService _productsService;
+
+        public ProductsController(IProductsService productsService)
+        {
+            _productsService = productsService;
+        }
+
+        [HttpGet]
+        public IEnumerable<Product> Index()
+        {
+            return _productsService.GetAll();
+        }
+
+        [HttpGet("{id:int}")]
+        public Product Get(int Id)
+        {
+            return _productsService.Get(Id);
+        }
     }
 }

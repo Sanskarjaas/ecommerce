@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace ecommerce_app.Models
 {
     public partial class EcommerceAppContext : DbContext
     {
+
         public EcommerceAppContext()
         {
         }
