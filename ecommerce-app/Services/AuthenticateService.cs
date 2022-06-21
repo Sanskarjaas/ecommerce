@@ -27,6 +27,7 @@ namespace ecommerce_app
             User LoggedInUser = _usersService.GetUserByEmail(email);
             string LoggedInUserName = LoggedInUser.FirstName + " " + LoggedInUser.LastName;
             if (LoggedInUser == null || LoggedInUser.Password != password) return null;
+            // Token generation
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(key);
             var tokenDescriptior = new SecurityTokenDescriptor

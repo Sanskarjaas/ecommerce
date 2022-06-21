@@ -25,7 +25,6 @@ namespace ecommerce_app.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
-            Console.WriteLine(loginDto);
             var token = _authenticateService.Authenticate(loginDto.Email, loginDto.Password);
             if(token==null)
             {
