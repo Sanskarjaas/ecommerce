@@ -34,5 +34,10 @@ namespace ecommerce_app.Services
         {
             throw new NotImplementedException();
         }
+
+        public User GetUserByEmail(string Email)
+        {
+            return db.User.Where(user => user.Email == Email).FirstOrDefault();
+        }
     }
 }

@@ -8,6 +8,6 @@ namespace ecommerce_app.Services
 {
     public interface IUsersService: ICrudService<User>
     {
-
+        public User GetUserByEmail(string Email);
     }
 }

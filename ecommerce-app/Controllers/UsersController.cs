@@ -1,5 +1,6 @@
 ﻿using ecommerce_app.Models;
 using ecommerce_app.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace ecommerce_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : Controller {
 
         private readonly IUsersService _usersService;

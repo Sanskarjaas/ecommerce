@@ -20,8 +20,6 @@ namespace ecommerce_app
 {
     public class Startup
     {
-        private const string JwtKey = "JwtSecret";
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,7 +35,7 @@ namespace ecommerce_app
             services.AddSingleton<IProductsService, ProductsService>();
             services.AddSingleton<IOrdersService, OrdersService>();
             services.AddSingleton<ITransactionsService, TransactionsService>();
-            var JwtSecret = Configuration.GetValue<string>(JwtKey);
+            string JwtSecretKey = Configuration.GetSection("JwtConfig").GetSection("SecretKey").Value;
            
             services.AddAuthentication(x =>
             {
@@ -50,13 +48,12 @@ namespace ecommerce_app
                 x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtSecret)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtSecretKey)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
             });
-
-            services.AddSingleton<IAuthenticateService>(new AuthenticateService(JwtSecret));
+            services.AddSingleton<IAuthenticateService>(new AuthenticateService(JwtSecretKey,new UsersService()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +74,7 @@ namespace ecommerce_app
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

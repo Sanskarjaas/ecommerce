@@ -1,13 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace ecommerce_app.Models
 {
     public partial class EcommerceAppContext : DbContext
     {
-
         public EcommerceAppContext()
         {
         }
@@ -27,7 +25,7 @@ namespace ecommerce_app.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=LAPTOP-SBP33C9A\\SQLEXPRESS;Database=EcommerceApp;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-375IQLA\\SQLEXPRESS;Database=EcommerceApp;Trusted_Connection=True;");
             }
         }
 
@@ -79,9 +77,7 @@ namespace ecommerce_app.Models
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
-                entity.Property(e => e.ProductImage)
-                    .IsRequired()
-                    .HasColumnType("image");
+                entity.Property(e => e.ProductImage).HasColumnType("image");
             });
 
             modelBuilder.Entity<Transaction>(entity =>
@@ -128,6 +124,12 @@ namespace ecommerce_app.Models
                 entity.Property(e => e.PhoneNo)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Role)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(user_name())");
             });
 
             OnModelCreatingPartial(modelBuilder);

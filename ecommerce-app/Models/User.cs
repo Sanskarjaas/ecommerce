@@ -17,7 +17,7 @@ namespace ecommerce_app.Models
         public string Password { get; set; }
         public string PhoneNo { get; set; }
         public string Address { get; set; }
-        public int IsAdmin { get; set; }
+        public string Role { get; set; }
 
         public virtual ICollection<Order> Order { get; set; }
     }

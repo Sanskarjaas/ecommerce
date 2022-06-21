@@ -1,4 +1,5 @@
-﻿using ecommerce_app.Models;
+﻿using ecommerce_app.Dtos;
+using ecommerce_app.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,42 +11,27 @@ using System.Threading.Tasks;
 namespace ecommerce_app.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class AuthController : Controller
     {
         private readonly IAuthenticateService _authenticateService;
         public AuthController(IAuthenticateService authenticateService)
         {
-
             _authenticateService = authenticateService;
-
         }
 
-        [HttpGet]
-        public IEnumerable<string>Get()
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login([FromBody] LoginDto loginDto)
         {
-            return new string[] {"value1","value2"};
-        }
-        [HttpGet("{id}",Name ="Get")]
-        public string Get(int id)
-        {
-            return "value";
-
-        }
-        [AllowAnonymous
-            ]
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] User User)
-
-        {
-            var token = _authenticateService.Authenticate(User.Email, User.Password);
+            Console.WriteLine(loginDto);
+            var token = _authenticateService.Authenticate(loginDto.Email, loginDto.Password);
             if(token==null)
             {
                 return Unauthorized();
             }
             return Ok(token);
-
         }
     }
 }
