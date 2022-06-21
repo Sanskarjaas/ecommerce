@@ -8,6 +8,12 @@ namespace ecommerce_app.Services
 {
     public class OrdersService : IOrdersService
     {
+
+        private readonly EcommerceAppContext db = new EcommerceAppContext();
+        public OrdersService()
+        {
+
+        }
         public Order Create()
         {
             throw new NotImplementedException();
@@ -20,12 +26,12 @@ namespace ecommerce_app.Services
 
         public Order Get(int Id)
         {
-            throw new NotImplementedException();
+            return db.Order.Find(Id);
         }
 
         public IEnumerable<Order> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Order.ToList();
         }
 
         public Order Update()
