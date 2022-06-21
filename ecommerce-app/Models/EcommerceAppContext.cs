@@ -27,7 +27,7 @@ namespace ecommerce_app.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-375IQLA\\SQLEXPRESS;Database=EcommerceApp;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-RML5VNTC\\MSSQLSERVER01;Database=EcommerceApp;Trusted_Connection=True;");
             }
         }
 
