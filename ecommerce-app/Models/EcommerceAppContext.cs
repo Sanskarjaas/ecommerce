@@ -95,8 +95,6 @@ namespace ecommerce_app.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Address)
                     .HasMaxLength(200)
                     .IsUnicode(false);
@@ -129,7 +127,7 @@ namespace ecommerce_app.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
-                    .HasDefaultValueSql("(user_name())");
+                    .HasDefaultValueSql("('USER')");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -15,16 +15,20 @@ namespace ecommerce_app
     public class AuthenticateService : IAuthenticateService
     {
         private readonly string key;
-        private readonly IUsersService _usersService;
+        private readonly IUsersService _UsersService;
 
-        public AuthenticateService(string key,IUsersService usersService)
+        public AuthenticateService(IUsersService UsersService)
+        {
+            _UsersService = UsersService;
+        }
+
+        public AuthenticateService(string key)
         {
             this.key = key;
-            _usersService = usersService;
         }
         public string Authenticate(string email, string password)
         {
-            User LoggedInUser = _usersService.GetUserByEmail(email);
+            User LoggedInUser = _UsersService.GetUserByEmail(email);
             string LoggedInUserName = LoggedInUser.FirstName + " " + LoggedInUser.LastName;
             if (LoggedInUser == null || LoggedInUser.Password != password) return null;
             // Token generation

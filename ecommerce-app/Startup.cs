@@ -4,17 +4,12 @@ using ecommerce_app.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ecommerce_app
 {
@@ -35,8 +30,10 @@ namespace ecommerce_app
             services.AddSingleton<IProductsService, ProductsService>();
             services.AddSingleton<IOrdersService, OrdersService>();
             services.AddSingleton<ITransactionsService, TransactionsService>();
+            services.AddTransient<IAuthenticateService, AuthenticateService>();
+
+            // Adding JWT Authentication
             string JwtSecretKey = Configuration.GetSection("JwtConfig").GetSection("SecretKey").Value;
-           
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -53,7 +50,11 @@ namespace ecommerce_app
                     ValidateAudience = false
                 };
             });
-            services.AddSingleton<IAuthenticateService>(new AuthenticateService(JwtSecretKey,new UsersService()));
+            services.AddSingleton<IAuthenticateService>(new AuthenticateService(JwtSecretKey));
+
+            // Adding Automapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

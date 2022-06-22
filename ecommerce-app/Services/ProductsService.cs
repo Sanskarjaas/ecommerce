@@ -1,4 +1,6 @@
-﻿using ecommerce_app.Models;
+﻿using ecommerce_app.Dtos;
+using ecommerce_app.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,13 @@ namespace ecommerce_app.Services
     {
         private readonly EcommerceAppContext db = new EcommerceAppContext();
 
-        public Product Create()
+        public Product Create(CreateProductDto CreateDtoContent)
         {
             throw new NotImplementedException();
         }
 
-        public Product Delete()
+
+        public Product Delete(int Id)
         {
             throw new NotImplementedException();
         }
@@ -30,7 +33,7 @@ namespace ecommerce_app.Services
             return db.Product.ToList();
         }
 
-        public Product Update()
+        public Product Update(int Id, JsonPatchDocument<UpdateProductDto> UpdateDtoContent)
         {
             throw new NotImplementedException();
         }
