@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace ecommerce_app.Controllers
 {
-    [Authorize]
     [Route("api/[controller]/[Action]")]
     [ApiController]
     public class AuthController : Controller

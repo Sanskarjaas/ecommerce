@@ -12,7 +12,7 @@ namespace ecommerce_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "ADMIN")]
     public class UsersController : Controller {
 
         private readonly IUsersService _usersService;
