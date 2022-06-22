@@ -60,6 +60,7 @@ namespace ecommerce_app.Services
         {
             var UserToBeDeleted = this.Get(Id);
             db.User.Remove(UserToBeDeleted);
+            db.SaveChanges();
             return UserToBeDeleted;
         }
     }
